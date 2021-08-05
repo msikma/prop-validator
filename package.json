@@ -1,0 +1,27 @@
+{
+  "name": "prop-validator",
+  "version": "1.0.0",
+  "description": "Runtime type checker for plain objects",
+  "main": "lib/index.js",
+  "scripts": {
+    "test": "jest"
+  },
+  "files": [
+    "index.js",
+    "lib/",
+    "package.json",
+    "license.md",
+    "readme.md"
+  ],
+  "keywords": [
+    "prop-types",
+    "validation"
+  ],
+  "homepage": "https://github.com/msikma/prop-validator",
+  "repository": "https://github.com/msikma/prop-validator",
+  "author": "Michiel Sikma <michiel@sikma.org>",
+  "license": "MIT",
+  "devDependencies": {
+    "jest": "^27.0.6"
+  }
+}
