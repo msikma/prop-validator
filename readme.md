@@ -6,11 +6,118 @@ This can be used as a quick and simple data validation tool—for example, to va
 
 ## Usage
 
-TODO
+To validate an object:
+
+```js
+const { validateProps, PropTypes } = require('prop-validator')
+
+const propTypes = {
+  foo: PropTypes.string,
+  bar: PropTypes.number,
+  baz: PropTypes.oneOfType([PropTypes.string, PropTypes.number])
+}
+
+const props = {
+  foo: 'something',
+  bar: 1234,
+  baz: 'something else'
+}
+
+const { results, errors, isValid } = validateProps(propTypes, props)
+
+console.log(isValid) // true
+
+console.log(results)
+```
+
+The `results` array will contain the following feedback:
+
+```js
+[
+  {
+    isValid: true,
+    isRequired: false,
+    valueType: 'string',
+    valueExpectedType: 'string | null',
+    valueExpectedTypeList: [ 'string', 'null' ],
+    objectPath: [ 'foo' ],
+    key: 'foo',
+    value: 'something',
+    message: null,
+    exception: null
+  },
+  {
+    isValid: true,
+    isRequired: false,
+    valueType: 'number',
+    valueExpectedType: 'number | null',
+    valueExpectedTypeList: [ 'number', 'null' ],
+    objectPath: [ 'bar' ],
+    key: 'bar',
+    value: 1234,
+    message: null,
+    exception: null
+  },
+  {
+    isValid: true,
+    isRequired: false,
+    valueType: 'string',
+    valueExpectedType: 'string | number | null',
+    valueExpectedTypeList: [ 'string', 'number', 'null' ],
+    objectPath: [ 'baz' ],
+    key: 'baz',
+    value: 'something else',
+    message: null,
+    exception: null
+  }
+]
+```
+
+Running the validator returns an object of two arrays: `results` and `errors`, and a boolean `isValid`. The former contains the validation results of all props, and the latter contains only any errors. If any errors were found, `isValid` will be false.
+
+If a given prop is invalid, like if we instead set `bar` to `"1234"` instead of a string in the previous example, the given error message will be the following:
+
+```
+"Property 'bar' should be type 'number | null', but type 'string' was found"
+```
+
+### Available type checkers
+
+| Name   | Matches |
+|:-------|:--------|
+| string | Any string |
+| number | Any number |
+| numberRange(min, 'n', max) | Number in the range min < n < max |
+| integer | Number that passes `Number.isInteger()` |
+| integerRange(min, 'n', max) | Number that passes `Number.isInteger()` and is in the range min < n < max |
+| boolean | Any boolean (note: aliased as `bool`) |
+| function | Any function (note: aliased as `func`) |
+| object | Any plain object |
+| symbol | Any symbol |
+| array | Any array |
+| regex | Any regular expression |
+| any | Any defined value* |
+| stringMatching(/regex/) | String that matches a given regular expression |
+| oneOf([...values]) | Value that matches a given literal |
+| oneOfType([...propTypes]) | Value that matches a given propType |
+| arrayOf | Array containing only members of a given propType |
+| objectOf | Plain object containing only values of a given propType |
+| instanceOf(classObject) | Instance of a given class |
+| customProp(validatorFn, type) | Value that passes the given validator function (`type` is for output) |
+| shape({...propTypes}) | Plain object whose values pass a given propType object |
+| exact({...propTypes}) | Plain object whose values pass a given propType object, without superfluous values |
+
+*: `any` still requires a value to be set when `.isRequired` is used, so it does not validate `undefined` in that case.
 
 ### Differences with the original PropTypes library
 
-The API is almost the same as the original PropTypes library, but there are a few small changes. Since this is not designed for React or DOM objects, the following types are not supported: `node`, `element`, `elementType`.
+The API is similar to the original PropTypes library, but there are a few small changes. Since this is not designed for React or DOM objects, the following types are not supported: `node`, `element`, `elementType`.
+
+Conversely, this library contains the following validators that the original does not have: `numberRange()`, `integer`, `integerRange()`, `boolean` (`bool` in original), `function` (`func` in original), `regex`, `stringMatching()`.
+
+In the original library, the `customProp()` validator has to throw an Error object; in this library, it needs to return true or false to indicate the validation result.
+
+Additionally, the original PropTypes library only logs error strings directly to the console rather than returning an object of information.
 
 ## Links
 
