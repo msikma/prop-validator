@@ -1,3 +1,5 @@
+[![MIT license](https://img.shields.io/badge/license-MIT-brightgreen.svg)](https://opensource.org/licenses/MIT) [![npm version](https://badge.fury.io/js/prop-validator.svg)](https://badge.fury.io/js/prop-validator)
+
 # prop-validator
 
 A simplified rewrite of the React PropTypes library, designed for use outside of React on arbitrary Javascript data.
