@@ -143,8 +143,8 @@ Note that extra values are permitted inside of a `shape` object: it *only* check
 | objectOf(propType) | Plain object containing only values of a given propType |
 | instanceOf(classObject) | Instance of a given class |
 | customProp(func, type) | Value that passes the given validator function (`type` is for output) |
-| shape({...propTypes}) | Plain object whose values pass a given propType object |
-| exact({...propTypes}) | Plain object whose values pass a given propType object, without superfluous values |
+| shape({...propTypes}) | Plain object whose values pass a given propTypes object |
+| exact({...propTypes}) | Plain object whose values pass a given propTypes object and which is not allowed to have extra values |
 
 *: `any` still requires a value to be set when `.isRequired` is used, so it does not validate `undefined` in that case.
 
