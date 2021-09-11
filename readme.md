@@ -116,7 +116,7 @@ The `numberRange` type checker has several different subtypes:
 ```js
 const propTypes = {
   rangeA: PropTypes.numberRange(0, 5),                  // 0 ≤ n ≤ 5
-  rangeB: PropTypes.numberRange.inclusive(0, 5),        // 0 ≤ n ≤ 5; alias for PropTypes.numberRange
+  rangeB: PropTypes.numberRange.inclusive(0, 5),        // 0 ≤ n ≤ 5; alias for .numberRange
   rangeC: PropTypes.numberRange.exclusive(0, 5),        // 0 < n < 5
   rangeD: PropTypes.numberRange.greaterThan(5),         // n > 5
   rangeE: PropTypes.numberRange.greaterThanOrEqual(5),  // n ≥ 5
