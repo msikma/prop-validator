@@ -142,7 +142,7 @@ Note that extra values are permitted inside of a `shape` object: it *only* check
 | arrayOf(propType) | Array containing only members of a given propType |
 | objectOf(propType) | Plain object containing only values of a given propType |
 | instanceOf(classObject) | Instance of a given class |
-| customProp(validatorFn, type) | Value that passes the given validator function (`type` is for output) |
+| customProp(func, type) | Value that passes the given validator function (`type` is for output) |
 | shape({...propTypes}) | Plain object whose values pass a given propType object |
 | exact({...propTypes}) | Plain object whose values pass a given propType object, without superfluous values |
 
