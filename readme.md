@@ -87,9 +87,9 @@ If a given prop is invalid, like if we instead set `bar` to `"1234"` instead of 
 |:-------|:--------|
 | string | Any string |
 | number | Any number |
-| numberRange(min, 'n', max) | Number in the range min < n < max |
+| numberRange(min, max) | Number in the range min ≤ n ≤ max, or another range type; see below |
 | integer | Number that passes `Number.isInteger()` |
-| integerRange(min, 'n', max) | Number that passes `Number.isInteger()` and is in the range min < n < max |
+| integerRange(min, max) | Number that passes `Number.isInteger()` and is in a given range; see below |
 | boolean | Any boolean (note: aliased as `bool`) |
 | function | Any function (note: aliased as `func`) |
 | object | Any plain object |
@@ -108,6 +108,24 @@ If a given prop is invalid, like if we instead set `bar` to `"1234"` instead of 
 | exact({...propTypes}) | Plain object whose values pass a given propType object, without superfluous values |
 
 *: `any` still requires a value to be set when `.isRequired` is used, so it does not validate `undefined` in that case.
+
+### Number range checkers
+
+The `numberRange` type checker has several different subtypes:
+
+```js
+const propTypes = {
+  rangeA: PropTypes.numberRange(0, 5),                  // 0 ≤ n ≤ 5
+  rangeB: PropTypes.numberRange.inclusive(0, 5),        // 0 ≤ n ≤ 5; alias for PropTypes.numberRange
+  rangeC: PropTypes.numberRange.exclusive(0, 5),        // 0 < n < 5
+  rangeD: PropTypes.numberRange.greaterThan(5),         // n > 5
+  rangeE: PropTypes.numberRange.greaterThanOrEqual(5),  // n ≥ 5
+  rangeF: PropTypes.numberRange.lessThan(5),            // n < 5
+  rangeG: PropTypes.numberRange.lessThanOrEqual(5)      // n ≤ 5
+}
+```
+
+Additionally, the `integerRange` type checker does the exact same thing, except it also verifies if the given value is an integer.
 
 ### Differences with the original PropTypes library
 
