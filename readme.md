@@ -27,7 +27,7 @@ const { results, errors, isValid } = validateProps(propTypes, props)
 
 console.log(isValid) // true
 
-console.log(results)
+console.log(results) // see below
 ```
 
 The `results` array will contain the following feedback:
@@ -80,6 +80,40 @@ If a given prop is invalid, like if we instead set `bar` to `"1234"` instead of 
 ```
 "Property 'bar' should be type 'number | null', but type 'string' was found"
 ```
+
+As can be seen from the contents of the `results` array, all checks are permitted to have a `null` value as well (which can also be `undefined`). If a value *must* be present and be a given type, the `.isRequired` type can be referenced instead, e.g. `PropTypes.string.isRequired`.
+
+### Nested type checking
+
+Nested properties can be checked through the use of `PropTypes.shape()`:
+
+```js
+const propTypes = {
+  options: PropTypes.shape({
+    name: PropTypes.string,
+    age: PropTypes.integer,
+    job: PropTypes.shape({
+      title: PropTypes.string,
+      tags: PropTypes.arrayOf(PropTypes.string)
+    })
+  })
+}
+
+const props = {
+  options: {
+    name: 'Alice',
+    age: 500,
+    job: {
+      title: 'CEO of Self-employed',
+      tags: ['nothing', 'particularly', 'interesting']
+    }
+  }
+}
+```
+
+All validation results, including the nested ones inside of a `PropTypes.shape()` object, are returned in the `results` and `errors` flat arrays.
+
+Note that extra values are permitted inside of a `shape` object: it *only* checks whether all values *that exist* pass validation. If you must be sure that only the expected values are present and no others, the `PropTypes.exact()` validator can be used instead.
 
 ### Available type checkers
 
