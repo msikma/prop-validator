@@ -100,8 +100,8 @@ If a given prop is invalid, like if we instead set `bar` to `"1234"` instead of 
 | stringMatching(/regex/) | String that matches a given regular expression |
 | oneOf([...values]) | Value that matches a given literal |
 | oneOfType([...propTypes]) | Value that matches a given propType |
-| arrayOf | Array containing only members of a given propType |
-| objectOf | Plain object containing only values of a given propType |
+| arrayOf(propType) | Array containing only members of a given propType |
+| objectOf(propType) | Plain object containing only values of a given propType |
 | instanceOf(classObject) | Instance of a given class |
 | customProp(validatorFn, type) | Value that passes the given validator function (`type` is for output) |
 | shape({...propTypes}) | Plain object whose values pass a given propType object |
