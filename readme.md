@@ -137,6 +137,8 @@ Note that extra values are permitted inside of a `shape` object: it *only* check
 | regex | Any regular expression |
 | error | Any error instance |
 | any | Any defined value* |
+| null | Only null |
+| undefined | Only undefined\*\* |
 | stringMatching(/regex/) | String that matches a given regular expression |
 | oneOf([...values]) | Value that matches a given literal |
 | oneOfType([...propTypes]) | Value that matches a given propType |
@@ -148,6 +150,8 @@ Note that extra values are permitted inside of a `shape` object: it *only* check
 | exact({...propTypes}) | Plain object whose values pass a given propTypes object and which is not allowed to have extra values |
 
 *: `any` still requires a value to be set when `.isRequired` is used, so it does not validate `undefined` in that case.
+
+\*\*: `undefined` still accepts the `null` value if `.isRequired` is not used.
 
 The `error` validator applies to any instance of an `Error` class or one that extends it (including `TypeError`, `RangeError`, etc).
 
@@ -173,7 +177,7 @@ Additionally, the `integerRange` type checker does the exact same thing, except 
 
 The API is similar to the original PropTypes library, but there are a few small changes. Since this is not designed for React or DOM objects, the following types are not supported: `node`, `element`, `elementType`.
 
-Conversely, this library contains the following validators that the original does not have: `numberRange()`, `integer`, `integerRange()`, `boolean` (`bool` in original), `function` (`func` in original), `regex`, `stringMatching()`, `error`.
+Conversely, this library contains the following validators that the original does not have: `numberRange()`, `integer`, `integerRange()`, `boolean` (`bool` in original), `function` (`func` in original), `regex`, `stringMatching()`, `error`, `null`, `undefined`.
 
 In the original library, the `customProp()` validator has to throw an Error object; in this library, it needs to return true or false to indicate the validation result.
 
